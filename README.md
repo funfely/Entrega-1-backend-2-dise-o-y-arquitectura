@@ -1,51 +1,78 @@
 # E-commerce Backend - Sistema de Autenticación
 
-Proyecto de e-commerce backend con sistema completo de autenticación usando **Passport.js** y **JWT (JSON Web Tokens)**.
+## Requisitos Implementados
 
-## Funcionalidades Implementadas
+1. **Modelo de Usuario**
+   - first_name, last_name, email (único), age, password (hash), cart (referencia), role (default: 'user')
 
-### 1. Modelo de Usuario
-- **first_name**: Nombre del usuario (String)
-- **last_name**: Apellido del usuario (String)
-- **email**: Email único (String)
-- **age**: Edad del usuario (Number)
-- **password**: Contraseña encriptada con bcrypt (String)
-- **cart**: Referencia a carrito de compras (ObjectId)
-- **role**: Rol del usuario, por defecto 'user' (String)
+2. **Encriptación de Contraseña**
+   - bcrypt con hashSync (10 rondas de salt)
 
-### 2. Encriptación de Contraseña
-- Implementado con **bcrypt** usando el método `hashSync`
-- 10 rondas de salt para máxima seguridad
-- Validación de contraseña con `compareSync`
+3. **Estrategias de Passport**
+   - Local Register: Crea usuarios con contraseña encriptada
+   - Local Login: Valida credenciales
+   - JWT: Valida tokens Bearer
 
-### 3. Estrategias de Passport
-#### Estrategia Local Register
-- Crea nuevos usuarios
-- Valida que el email sea único
-- Encripta la contraseña automáticamente
+4. **Sistema de Login con JWT**
+   - Token con duración de 24 horas
+   - Retorna token y datos del usuario
 
-#### Estrategia Local Login
-- Valida credenciales (email y contraseña)
-- Retorna el usuario si las credenciales son válidas
-
-#### Estrategia JWT
-- Valida tokens Bearer en los headers
-- Extrae el token del header `Authorization: Bearer <token>`
-- Renueva la sesión del usuario desde el token
-
-### 4. Sistema de Login con JWT
-- Genera tokens con duración de **24 horas**
-- Incluye id y email del usuario en el payload
-- Retorna token y datos del usuario en el login
-
-### 5. Ruta de Validación
-- Endpoint `/api/sessions/current`
-- Valida que el usuario esté logueado con JWT válido
-- Retorna los datos completos del usuario autenticado
+5. **Ruta de Validación /current**
+   - GET /api/sessions/current
+   - Valida JWT y retorna datos del usuario autenticado
 
 ---
 
-## Guía de Instalación y Prueba
+## Cómo Probar
+
+### Instalación
+```bash
+npm install
+```
+
+### Iniciar Servidor
+```bash
+# Terminal 1: MongoDB
+mongod
+
+# Terminal 2: Servidor
+npm start
+```
+
+### Pruebas con Postman
+
+**1. Registrar Usuario**
+```
+POST http://localhost:8080/api/sessions/register
+Content-Type: application/json
+
+{
+  "first_name": "Juan",
+  "last_name": "Pérez",
+  "email": "juan@example.com",
+  "age": 25,
+  "password": "password123"
+}
+```
+
+**2. Login**
+```
+POST http://localhost:8080/api/sessions/login
+Content-Type: application/json
+
+{
+  "email": "juan@example.com",
+  "password": "password123"
+}
+```
+Respuesta: Retorna `token` (copiar para siguiente paso)
+
+**3. Validar Usuario Actual**
+```
+GET http://localhost:8080/api/sessions/current
+Authorization: Bearer <TOKEN_OBTENIDO>
+```
+Respuesta: Retorna datos del usuario autenticado
 
 ### Paso 1: Instalar Dependencias
 ```bash
@@ -214,24 +241,6 @@ curl -X GET http://localhost:8080/api/sessions/current \
 
 ---
 
-## Estructura de Archivos Creados
-
-```
-src/
-├── config/
-│   └── passportConfig.js          # Configuración de Passport y JWT
-├── dao/
-│   └── models/
-│       └── userModel.js            # Modelo de Usuario
-├── routes/
-│   └── sessionRouter.js            # Rutas de autenticación
-├── utils/
-│   └── passwordUtil.js             # Funciones de encriptación
-└── app.js                          # Actualizado con Passport
-```
-
----
-
 ## Seguridad
 
 - Contraseñas encriptadas con bcrypt (10 rondas de salt)
@@ -254,17 +263,6 @@ src/
   "mongoose": "^7.5.3"
 }
 ```
-
----
-
-## Próximos Pasos Opcionales
-
-- [ ] Agregar validación de email
-- [ ] Implementar refresh tokens
-- [ ] Agregar rol "admin" con permisos especiales
-- [ ] Implementar cambio de contraseña
-- [ ] Agregar recuperación de contraseña por email
-- [ ] Implementar 2FA (Two-Factor Authentication)
 
 ---
 
