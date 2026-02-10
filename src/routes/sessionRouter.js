@@ -27,7 +27,7 @@ router.post("/login", passport.authenticate("login", { session: false }), async 
     });
 });
 
-router.get("/current", passport.authenticate("jwt", { session: false }), async (req, res) => {
+router.get("/current", passport.authenticate("current", { session: false }), async (req, res) => {
     res.status(200).json({
         message: "Datos del usuario actual",
         user: {

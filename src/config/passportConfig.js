@@ -68,6 +68,18 @@ const initializePassport = () => {
         }
     }));
 
+    passport.use("current", new JWTStrategy.Strategy(JWTStrategyOptions, async (payload, done) => {
+        try {
+            const user = await userModel.findById(payload.id);
+            if (!user) {
+                return done(null, false);
+            }
+            return done(null, user);
+        } catch (error) {
+            return done(error);
+        }
+    }));
+
     passport.serializeUser((user, done) => {
         done(null, user._id);
     });
