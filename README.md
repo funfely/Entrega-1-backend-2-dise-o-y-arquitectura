@@ -2,7 +2,7 @@
 
 Proyecto de e-commerce backend con sistema completo de autenticación usando **Passport.js** y **JWT (JSON Web Tokens)**.
 
-## 📋 Funcionalidades Implementadas
+## Funcionalidades Implementadas
 
 ### 1. Modelo de Usuario
 - **first_name**: Nombre del usuario (String)
@@ -45,7 +45,7 @@ Proyecto de e-commerce backend con sistema completo de autenticación usando **P
 
 ---
 
-## 🚀 Guía de Instalación y Prueba
+## Guía de Instalación y Prueba
 
 ### Paso 1: Instalar Dependencias
 ```bash
@@ -68,9 +68,9 @@ Deberías ver: `"Start server in PORT 8080"`
 
 ---
 
-## 🧪 Pruebas con Postman
+## Pruebas con Postman
 
-### 1️⃣ Registrar un Nuevo Usuario
+### 1. Registrar un Nuevo Usuario
 
 **Método:** `POST`  
 **URL:** `http://localhost:8080/api/sessions/register`  
@@ -105,7 +105,7 @@ Content-Type: application/json
 
 ---
 
-### 2️⃣ Login (Obtener JWT)
+### 2. Login (Obtener JWT)
 
 **Método:** `POST`  
 **URL:** `http://localhost:8080/api/sessions/login`  
@@ -136,11 +136,11 @@ Content-Type: application/json
 }
 ```
 
-**⚠️ Importante:** Copia el valor de `token` para usarlo en el siguiente paso.
+[IMPORTANTE] Copia el valor de `token` para usarlo en el siguiente paso.
 
 ---
 
-### 3️⃣ Validar Usuario Autenticado (/current)
+### 3. Validar Usuario Autenticado (/current)
 
 **Método:** `GET`  
 **URL:** `http://localhost:8080/api/sessions/current`  
@@ -167,7 +167,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUwN2YxZjc3Y
 
 ---
 
-## 📱 Pruebas con cURL
+## Pruebas con cURL
 
 ### Registrar usuario:
 ```bash
@@ -200,21 +200,21 @@ curl -X GET http://localhost:8080/api/sessions/current \
 
 ---
 
-## 🔍 Casos de Prueba
+## Casos de Prueba
 
 | Caso | Resultado |
 |------|-----------|
-| Registrar usuario con email único | ✅ Éxito (201) |
-| Registrar con email duplicado | ❌ Falla |
-| Login con credenciales correctas | ✅ Retorna JWT (200) |
-| Login con contraseña incorrecta | ❌ Falla |
-| Acceder a /current sin token | ❌ No autorizado |
-| Acceder a /current con token válido | ✅ Retorna usuario (200) |
-| Acceder a /current con token inválido | ❌ No autorizado |
+| Registrar usuario con email único | OK (201) |
+| Registrar con email duplicado | Falla |
+| Login con credenciales correctas | Retorna JWT (200) |
+| Login con contraseña incorrecta | Falla |
+| Acceder a /current sin token | No autorizado |
+| Acceder a /current con token válido | Retorna usuario (200) |
+| Acceder a /current con token inválido | No autorizado |
 
 ---
 
-## 📁 Estructura de Archivos Creados
+## Estructura de Archivos Creados
 
 ```
 src/
@@ -232,17 +232,17 @@ src/
 
 ---
 
-## 🔐 Seguridad
+## Seguridad
 
-- ✅ Contraseñas encriptadas con bcrypt (10 rondas de salt)
-- ✅ JWT con expiración de 24 horas
-- ✅ Email único por usuario
-- ✅ Validación de credenciales en login
-- ✅ Estrategias de Passport separadas para Register, Login y JWT
+- Contraseñas encriptadas con bcrypt (10 rondas de salt)
+- JWT con expiración de 24 horas
+- Email único por usuario
+- Validación de credenciales en login
+- Estrategias de Passport separadas para Register, Login y JWT
 
 ---
 
-## 📦 Dependencias Utilizadas
+## Dependencias Utilizadas
 
 ```json
 {
@@ -257,7 +257,7 @@ src/
 
 ---
 
-## ⚡ Próximos Pasos Opcionales
+## Próximos Pasos Opcionales
 
 - [ ] Agregar validación de email
 - [ ] Implementar refresh tokens
@@ -268,7 +268,7 @@ src/
 
 ---
 
-## 📝 Notas
+## Notas
 
 - MongoDB debe estar ejecutándose en `mongodb://127.0.0.1:27017/entrega-final`
 - El JWT expira en **24 horas**
